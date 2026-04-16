@@ -19,5 +19,3 @@ public class StarApplication extends Application {
         stage.setMaximized(true);
     }
 }
-
-
