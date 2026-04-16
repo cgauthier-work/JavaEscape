@@ -15,4 +15,8 @@ public class HelloController {
     protected void onQuitButtonClick(){
         System.exit(0);
     }
+    @FXML
+    protected void onReplayButtonClick(){
+        System.out.print("Reprendre Button");
+    }
 }
