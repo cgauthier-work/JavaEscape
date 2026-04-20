@@ -13,7 +13,7 @@ public class HelloController {
     protected void onPlayButtonCLick() {
         try {
             Stage stage = (Stage) welcomeText.getScene().getWindow();
-            MastermindScene gameScene = new MastermindScene();
+            MastermindGame gameScene = new MastermindGame();
             gameScene.start(stage);
         } catch (IOException e) {
             System.err.println(e.getMessage());
