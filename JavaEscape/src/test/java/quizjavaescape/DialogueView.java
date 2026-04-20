@@ -1,4 +1,4 @@
-package com.example.quizjavaescape;
+package quizjavaescape;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,6 +15,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import quizjavaescape.IntroView;
 
 public class DialogueView {
 
@@ -48,7 +49,7 @@ public class DialogueView {
             Image img = new Image(DialogueView.class.getResourceAsStream(IMAGE_NAME));
             if (img.isError()) {
                 // Si ça rate, on tente le chemin absolu depuis resources
-                img = new Image(DialogueView.class.getResourceAsStream("/com/example/quizjavaescape/" + IMAGE_NAME));
+                img = new Image(DialogueView.class.getResourceAsStream("/quizjavaescape/" + IMAGE_NAME));
             }
             photoChef.setImage(img);
         } catch (Exception e) {

@@ -1,4 +1,4 @@
-package com.example.quizjavaescape;
+package quizjavaescape;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
