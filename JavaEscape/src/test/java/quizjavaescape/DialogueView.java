@@ -15,57 +15,65 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import quizjavaescape.IntroView;
 
 public class DialogueView {
 
-    private static final String IMAGE_NAME = "chef.png";
+    private static final String IMAGE_CHEF = "/quizjavaescape/chef.png";
 
     private static final String[] TEXTES_INTRO = {
-            "Écoute-moi bien. Une bombe a été placée quelque part en ville, et tout repose sur toi. " +
-                    "Nous n'avons pas de temps à perdre. Chaque seconde compte.",
-            "Voici la situation : tu vas devoir résoudre une série d'énigmes. " +
-                    "Le temps presse, mais nous avons encore une chance si tu agis avec précision.",
+            "Écoute-moi bien. Une bombe a été placée quelque part en ville, et tout repose sur toi. Nous n'avons pas de temps à perdre. Chaque seconde compte.",
+            "Voici la situation : tu vas devoir résoudre une série d'énigmes. Chacune te donnera des indices pour localiser la bombe.",
             "Je sais que ce n'est pas facile, mais je crois en toi. On compte sur toi. La ville compte sur toi."
     };
 
-    private static final String[] TEXTES_INTERMEDIAIRE = {
-            "Bien joué. Tu as résolu toutes les énigmes, et maintenant, " +
-                    "nous avons une meilleure idée de l'endroit où la bombe pourrait être.",
-            "Trouve cette bombe, et sauve tout le monde. Allez, il ne reste plus beaucoup de temps !"
+    private static final String[] TEXTES_AVANT_MASTERMIND = {
+            "Tu as trouvé l'emplacement de la bombe. C'est un soulagement, mais ne te repose pas encore. Le plus difficile reste à venir.",
+            "Nous savons maintenant où elle se trouve, mais il faut encore la désamorcer. C'est une course contre la montre.",
+            "Si tu échoues à désactiver la bombe, tout est fini. Mais je sais que tu as ce qu'il faut pour y arriver.",
+            "Bonne chance. Et rappelle-toi, le destin de tout le monde est entre tes mains."
     };
 
-    public static void afficher(Stage stage, boolean intermediaire) {
+    private static final String[] TEXTES_VICTOIRE = {
+            "Tu l'as fait... Tu as réussi à désamorcer la bombe et à sauver la ville. Je savais que tu en étais capable.",
+            "Grâce à toi, des vies ont été sauvées aujourd'hui. Tu as fait preuve de courage, d'intelligence et de détermination.",
+            "Bien joué, vraiment. Tu as prouvé qu'il n'y a rien que tu ne puisses accomplir. Je n'oublierai jamais ce jour."
+    };
 
-        String[] textes = intermediaire ? TEXTES_INTERMEDIAIRE : TEXTES_INTRO;
+    private static final String[] TEXTES_DEFAITE = {
+            "L'échec est total. La bombe a explosé.",
+            "Le Chef, qui avait placé toute sa confiance en toi, est mort dans l'explosion.",
+            "La ville a été détruite. Des vies ont été perdues. Tout est fini.",
+            "On est tous très déçus..."
+    };
+
+    public static void afficher(Stage stage, String type) {
+        String[] textes;
+        switch (type) {
+            case "AVANT_MASTERMIND": textes = TEXTES_AVANT_MASTERMIND; break;
+            case "VICTOIRE": textes = TEXTES_VICTOIRE; break;
+            case "DEFAITE": textes = TEXTES_DEFAITE; break;
+            default: textes = TEXTES_INTRO; break;
+        }
+
+        VBox root = new VBox(25);
+        root.setAlignment(Pos.CENTER);
+        root.setPadding(new Insets(40));
+        root.setStyle("-fx-background-color: #1a1a2e;");
 
         Label titre = new Label("💣 JAVA ESCAPE");
         titre.setStyle("-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #e0e0e0;");
 
-
         ImageView photoChef = new ImageView();
         try {
-
-            Image img = new Image(DialogueView.class.getResourceAsStream(IMAGE_NAME));
-            if (img.isError()) {
-                // Si ça rate, on tente le chemin absolu depuis resources
-                img = new Image(DialogueView.class.getResourceAsStream("/quizjavaescape/" + IMAGE_NAME));
-            }
-            photoChef.setImage(img);
-        } catch (Exception e) {
-            System.out.println("L'image est introuvable ou mal placée.");
-        }
-
+            photoChef.setImage(new Image(DialogueView.class.getResourceAsStream(IMAGE_CHEF)));
+        } catch (Exception e) {}
         photoChef.setFitWidth(220);
         photoChef.setPreserveRatio(true);
 
         VBox conteneurImage = new VBox(photoChef);
         conteneurImage.setStyle("-fx-border-color: #4a90d9; -fx-border-width: 3; -fx-border-radius: 15;");
-        conteneurImage.setMinWidth(220);
-        conteneurImage.setMinHeight(220);
-        // ----------------------
 
-        Label labelNom = new Label("👮 CHEF DE POLICE");
+        Label labelNom = new Label("👮 CHEF");
         labelNom.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #4a90d9;");
 
         Label labelTexte = new Label();
@@ -74,7 +82,6 @@ public class DialogueView {
         labelTexte.setMinHeight(120);
 
         VBox zoneTexte = new VBox(15, labelNom, labelTexte);
-        zoneTexte.setAlignment(Pos.CENTER_LEFT);
         HBox.setHgrow(zoneTexte, Priority.ALWAYS);
 
         HBox boiteDialogue = new HBox(30, conteneurImage, zoneTexte);
@@ -83,95 +90,81 @@ public class DialogueView {
         boiteDialogue.setMaxWidth(850);
 
         Button boutonSuivant = new Button("Suivant ▶");
-        boutonSuivant.setStyle("-fx-background-color: #4a90d9; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 12 35; -fx-background-radius: 10;");
+        boutonSuivant.setStyle("-fx-background-color: #4a90d9; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 25; -fx-background-radius: 8;");
         boutonSuivant.setVisible(false);
 
-        VBox root = new VBox(25, titre, boiteDialogue, boutonSuivant);
-        root.setAlignment(Pos.CENTER);
-        root.setPadding(new Insets(40));
-        root.setStyle("-fx-background-color: #1a1a2e;");
-
-        Scene scene = new Scene(root, 950, 650);
+        root.getChildren().addAll(titre, boiteDialogue, boutonSuivant);
 
         int[] indexDialogue = {0};
-        int[] indexLettre = {0};
-        boolean[] animFinie = {false};
-        String[] texteComplet = {""};
         Timeline[] timeline = {null};
 
-        Runnable lancerAnimation = () -> {
-            if (indexDialogue[0] >= textes.length) {
-                if (intermediaire) afficherFin(stage);
-                else QuizView.afficher(stage, 0);
-                return;
-            }
-            texteComplet[0] = textes[indexDialogue[0]];
-            indexLettre[0] = 0;
-            animFinie[0] = false;
-            labelTexte.setText("");
-            boutonSuivant.setVisible(false);
-
-            if (timeline[0] != null) timeline[0].stop();
-            timeline[0] = new Timeline(new KeyFrame(Duration.millis(30), e -> {
-                if (indexLettre[0] < texteComplet[0].length()) {
-                    labelTexte.setText(texteComplet[0].substring(0, indexLettre[0] + 1));
-                    indexLettre[0]++;
-                }
-            }));
-            timeline[0].setCycleCount(texteComplet[0].length());
-            timeline[0].setOnFinished(e -> {
-                animFinie[0] = true;
-                boutonSuivant.setVisible(true);
-            });
-            timeline[0].play();
-        };
-
         Runnable avancer = () -> {
-            if (!animFinie[0]) {
-                if (timeline[0] != null) timeline[0].stop();
-                labelTexte.setText(texteComplet[0]);
-                animFinie[0] = true;
+            if (timeline[0] != null && timeline[0].getStatus() == Timeline.Status.RUNNING) {
+                timeline[0].stop();
+                labelTexte.setText(textes[indexDialogue[0]]);
                 boutonSuivant.setVisible(true);
             } else {
                 indexDialogue[0]++;
-                lancerAnimation.run();
+                if (indexDialogue[0] < textes.length) {
+                    lancerAnimation(textes[indexDialogue[0]], labelTexte, boutonSuivant, timeline);
+                } else {
+                    redirectionFinDialogue(stage, type);
+                }
             }
         };
 
         boutonSuivant.setOnAction(e -> avancer.run());
+        Scene scene = new Scene(root, 950, 650);
         scene.setOnKeyPressed(e -> { if (e.getCode() == KeyCode.SPACE) avancer.run(); });
 
         stage.setScene(scene);
-        lancerAnimation.run();
+        lancerAnimation(textes[0], labelTexte, boutonSuivant, timeline);
     }
 
-    private static void afficherFin(Stage stage) {
+    private static void lancerAnimation(String texte, Label label, Button btn, Timeline[] tl) {
+        label.setText("");
+        btn.setVisible(false);
+        final int[] i = {0};
+        tl[0] = new Timeline(new KeyFrame(Duration.millis(30), e -> {
+            label.setText(texte.substring(0, i[0] + 1));
+            i[0]++;
+        }));
+        tl[0].setCycleCount(texte.length());
+        tl[0].setOnFinished(e -> btn.setVisible(true));
+        tl[0].play();
+    }
+
+    private static void redirectionFinDialogue(Stage stage, String type) {
+        if (type.equals("INTRO")) {
+            QuizView.afficher(stage, 0);
+        } else if (type.equals("AVANT_MASTERMIND")) {
+            try {
+                new MastermindGame.MastermindGame().start(stage);
+            } catch (Exception e) { e.printStackTrace(); }
+        } else if (type.equals("VICTOIRE") || type.equals("DEFAITE")) {
+            afficherEcranFinal(stage, type.equals("VICTOIRE"));
+        }
+    }
+
+    private static void afficherEcranFinal(Stage stage, boolean estVictoire) {
         VBox root = new VBox(30);
         root.setAlignment(Pos.CENTER);
-        root.setPadding(new Insets(50));
-        root.setStyle("-fx-background-color: #1a1a2e;");
+        root.setStyle("-fx-background-color: " + (estVictoire ? "#1a1a2e;" : "#2e1a1a;"));
 
-        Label emoji = new Label("🎉");
-        emoji.setStyle("-fx-font-size: 80px;");
+        Label emoji = new Label(estVictoire ? "🎉" : "💥");
+        emoji.setStyle("-fx-font-size: 100px;");
 
-        Label bravo = new Label("FÉLICITATIONS !");
-        bravo.setStyle("-fx-font-size: 45px; -fx-font-weight: bold; -fx-text-fill: #00ff00;");
+        Label titre = new Label(estVictoire ? "MISSION RÉUSSIE !" : "GAME OVER");
+        titre.setStyle("-fx-font-size: 50px; -fx-font-weight: bold; -fx-text-fill: " + (estVictoire ? "#00ff00;" : "#ff4d4d;"));
 
-        Label message = new Label("Tu as désamorcé la bombe et sauvé la ville !");
+        Label message = new Label(estVictoire ? "Vous avez sauvé la ville !" : "La bombe a explosé... Tout est perdu.");
         message.setStyle("-fx-font-size: 20px; -fx-text-fill: white;");
 
-        Button btnRecommencer = new Button("🔄 Recommencer");
-        btnRecommencer.setStyle("-fx-background-color: #4a90d9; -fx-text-fill: white; -fx-padding: 10 25; -fx-background-radius: 10;");
-        btnRecommencer.setOnAction(e -> IntroView.afficher(stage));
-
-        Button btnQuitter = new Button("❌ Quitter");
-        btnQuitter.setStyle("-fx-background-color: #e94560; -fx-text-fill: white; -fx-padding: 10 25; -fx-background-radius: 10;");
+        Button btnQuitter = new Button("Quitter le jeu");
+        btnQuitter.setStyle("-fx-background-color: #e94560; -fx-text-fill: white; -fx-padding: 10 30;");
         btnQuitter.setOnAction(e -> stage.close());
 
-        HBox boutons = new HBox(20, btnRecommencer, btnQuitter);
-        boutons.setAlignment(Pos.CENTER);
-
-        root.getChildren().addAll(emoji, bravo, message, boutons);
+        root.getChildren().addAll(emoji, titre, message, btnQuitter);
         stage.setScene(new Scene(root, 950, 650));
     }
 }

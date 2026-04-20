@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="SceneHandler.MastermindController"
+      fx:controller="MastermindGame.MastermindController"
       style="-fx-padding: 30;">
 
     <Label text="Choisissez une couleur :" style="-fx-font-weight: bold;"/>
@@ -36,7 +36,7 @@
 
     <ScrollPane prefHeight="200.0" prefWidth="400.0">
         <content>
-            <Label fx:id="historyLabel" text="Historique des essais :" wrapText="true" />
+            <Label fx:id="historyLabel" text="Historique des essais :\n" wrapText="true" />
         </content>
     </ScrollPane>
 </VBox>

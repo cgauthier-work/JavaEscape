@@ -1,4 +1,4 @@
-package SceneHandler;
+package MastermindGame;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,13 +15,13 @@ public class MastermindGame {
     public void start(Stage stage) throws IOException {
         generateSecretCode();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MastermindScene.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Mastermind/MastermindScene.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
         stage.setTitle("Mastermind");
         stage.setScene(scene);
-        stage.show();
         stage.setMaximized(true);
+        stage.show();
     }
 
     public void generateSecretCode() {

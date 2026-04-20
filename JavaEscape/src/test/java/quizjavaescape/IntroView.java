@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.lang.model.type.NullType;
+
 public class IntroView {
 
     public static void afficher(Stage stage) {
@@ -30,7 +32,7 @@ public class IntroView {
                         "-fx-font-size: 18px; -fx-font-weight: bold;" +
                         "-fx-padding: 14 50 14 50; -fx-background-radius: 10; -fx-cursor: hand;"
         );
-        boutonJouer.setOnAction(e -> DialogueView.afficher(stage, false));
+        boutonJouer.setOnAction(e -> DialogueView.afficher(stage, "INTRO"));
 
         VBox root = new VBox(22, emoji, titre, sousTitre, boutonJouer);
         root.setAlignment(Pos.CENTER);

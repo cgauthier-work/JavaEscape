@@ -1,4 +1,4 @@
-package SceneHandler;
+package MastermindGame;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -78,15 +78,17 @@ public class MastermindController {
                 }
             }
 
-            String log = "Essai " + attempts + " : " + selectedColors + " | Score : " + score + "\n";
+            String log = "\nEssai " + attempts + " : " + selectedColors + " | Score : " + score + "\n";
             if (historyLabel != null) {
                 historyLabel.setText(historyLabel.getText() + log);
             }
 
+            javafx.stage.Stage stage = (javafx.stage.Stage) historyLabel.getScene().getWindow();
+
             if (score == 4) {
-                System.out.println("GG");
+                quizjavaescape.DialogueView.afficher(stage, "VICTOIRE");
             } else if (attempts == MAX_ATTEMPTS) {
-                System.out.println("Perdu ! Code : " + codeSecret);
+                quizjavaescape.DialogueView.afficher(stage, "DEFAITE");
             }
 
             clearCurrentSelection();

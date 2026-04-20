@@ -8,8 +8,10 @@ module com.example.javaescape {
     requires net.synedra.validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
+    requires java.compiler;
 
-
+    opens MastermindGame to javafx.fxml;
+    exports MastermindGame;
     opens quizjavaescape to javafx.fxml;
     exports quizjavaescape;
 

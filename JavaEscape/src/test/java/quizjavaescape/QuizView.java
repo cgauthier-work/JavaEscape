@@ -138,7 +138,7 @@ public class QuizView {
 
                     if (bonnesReponses[0] >= SCORE_REQUIS) {
                         boutonSuivant.setText("Continuer l'aventure ▶");
-                        boutonSuivant.setOnAction(ev -> DialogueView.afficher(stage, true));
+                        boutonSuivant.setOnAction(ev -> DialogueView.afficher(stage, "AVANT_MASTERMIND"));
                         boutonSuivant.setVisible(true);
                         boutonRecommencer.setVisible(true);
                     } else {
