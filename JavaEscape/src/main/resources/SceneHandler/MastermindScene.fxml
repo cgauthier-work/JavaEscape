@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="SceneHandler.MastermindController"
+      style="-fx-padding: 30;">
+
+    <Label text="Choisissez une couleur :" style="-fx-font-weight: bold;"/>
+
+    <HBox alignment="CENTER" spacing="10.0">
+        <Button text="Rouge" fx:id="Rouge" onAction="#onColorClick"
+                style="-fx-background-color: #FF0000; -fx-text-fill: white;"/>
+
+        <Button text="Bleu" fx:id="Bleu" onAction="#onColorClick"
+                style="-fx-background-color: #0000FF; -fx-text-fill: white;"/>
+
+        <Button text="Vert" fx:id="Vert" onAction="#onColorClick"
+                style="-fx-background-color: #008000; -fx-text-fill: white;"/>
+
+        <Button text="Jaune" fx:id="Jaune" onAction="#onColorClick"
+                style="-fx-background-color: #FFFF00; -fx-text-fill: black;"/>
+
+        <Button text="Orange" fx:id="Orange" onAction="#onColorClick"
+                style="-fx-background-color: #FFA500; -fx-text-fill: black;"/>
+
+        <Button text="Violet" fx:id="Violet" onAction="#onColorClick"
+                style="-fx-background-color: #800080; -fx-text-fill: white;"/>
+    </HBox>
+
+    <Button text="Lancer" fx:id="Launch" onAction="#onLaunchClick"
+            style="-fx-background-color: #800080; -fx-text-fill: white;"/>
+
+    <ScrollPane prefHeight="200.0" prefWidth="400.0">
+        <content>
+            <Label fx:id="historyLabel" text="Historique des essais :" wrapText="true" />
+        </content>
+    </ScrollPane>
+</VBox>
